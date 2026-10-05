@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Vision compare result",
+  "description": "What a vision model returns after comparing a current camera frame with the approved baseline of the same view. The rules engine reads only this shape.",
+  "type": "object",
+  "required": ["changed", "findings", "benign_changes"],
+  "additionalProperties": false,
+  "properties": {
+    "changed": {
+      "type": "boolean",
+      "description": "True if anything differs from the baseline beyond the benign changes listed."
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["category", "where", "description", "confidence"],
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "water",
+              "opening",
+              "damage",
+              "growth_or_discoloration",
+              "person",
+              "package",
+              "debris",
+              "overgrowth",
+              "pool_water",
+              "lighting",
+              "other"
+            ]
+          },
+          "where": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Location in the frame, in words, e.g. 'floor in front of sink base, left third of frame'."
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What differs from the baseline, in measured language."
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    },
+    "benign_changes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Normal differences that are not findings, e.g. 'lighting shift from window'."
+    }
+  }
+}

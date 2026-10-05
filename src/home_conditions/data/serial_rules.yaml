@@ -1,0 +1,78 @@
+# Serial-number date decoding rules.
+#
+# SAMPLE RULES ONLY. The brands below are fictitious and exist to show the
+# format and exercise the decoder. Add real rules only from a manufacturer's
+# own public documentation, cite it in `source`, and never copy a third-party
+# decoder guide.
+#
+# Format (version 1), one entry per rule:
+#   id:            unique id
+#   brand:         brand as printed on the data plate
+#   brand_aliases: other spellings that select this rule (case-insensitive)
+#   applies_to:    component types from appliance_life.yaml (empty = any)
+#   pattern:       regex matched against the whole serial after it is
+#                  uppercased and stripped of spaces and dashes. Named groups:
+#                  `year` (required), and `month` or `week` (optional).
+#   year:          {format: YYYY | YY | Y | letter, map: {...}, cycle_years: N}
+#                  YY picks the most recent century not in the future.
+#                  Y (one digit) and letter codes repeat, so they produce one
+#                  candidate per cycle; confidence is split between them.
+#   month:         {format: MM | letter, map: {...}}   (or omit)
+#   week:          {format: WW}                        (or omit)
+#   confidence:    0-1, how reliable the rule is when the pattern matches
+#   min_year:      earliest plausible manufacture year
+#   source:        where the rule comes from
+
+version: 1
+rules:
+  - id: acme-water-mmyy
+    brand: Acme Water Products
+    brand_aliases: [acme]
+    applies_to: [water_heater_tank_gas, water_heater_tank_electric]
+    pattern: '^(?P<month>\d{2})(?P<year>\d{2})[A-Z]\d{5}$'
+    year: {format: YY}
+    month: {format: MM}
+    confidence: 0.9
+    min_year: 1980
+    source: Fictitious sample rule for tests and documentation.
+
+  - id: borealis-hvac-yyww
+    brand: Borealis Comfort
+    brand_aliases: [borealis]
+    applies_to: [ac_condenser, heat_pump, air_handler, furnace_gas]
+    pattern: '^(?P<year>\d{2})(?P<week>\d{2})[A-Z]{2}\d{4}$'
+    year: {format: YY}
+    week: {format: WW}
+    confidence: 0.85
+    min_year: 1980
+    source: Fictitious sample rule for tests and documentation.
+
+  - id: cobalt-letters
+    brand: Cobalt Appliance
+    brand_aliases: [cobalt]
+    applies_to: []
+    pattern: '^(?P<month>[A-HJ-M])(?P<year>[A-HJ-NP-TVW])\d{6}$'
+    month:
+      format: letter
+      map: {A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, J: 9, K: 10, L: 11, M: 12}
+    year:
+      format: letter
+      # 20 letters (A-W, skipping I, O and U); the cycle repeats every 20 years.
+      map: {A: 2000, B: 2001, C: 2002, D: 2003, E: 2004, F: 2005, G: 2006, H: 2007,
+            J: 2008, K: 2009, L: 2010, M: 2011, N: 2012, P: 2013, Q: 2014, R: 2015,
+            S: 2016, T: 2017, V: 2018, W: 2019}
+      cycle_years: 20
+    confidence: 0.8
+    min_year: 1980
+    source: Fictitious sample rule for tests and documentation.
+
+  - id: dynamo-single-digit
+    brand: Dynamo Heat
+    brand_aliases: [dynamo]
+    applies_to: []
+    pattern: '^D(?P<year>\d)(?P<month>\d{2})\d{5}$'
+    year: {format: Y}
+    month: {format: MM}
+    confidence: 0.9
+    min_year: 1990
+    source: Fictitious sample rule for tests and documentation.

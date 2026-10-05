@@ -1,0 +1,66 @@
+# Report and alert language rules. Edit freely; the tests check that every
+# built-in finding still passes these rules.
+#
+# Each entry is a case-insensitive regular expression plus the fix to suggest.
+
+# Words that never appear in a report or alert.
+banned_words:
+  - pattern: '\bmou?ld(?:s|y|ed|-like)?\b'
+    suggestion: 'Use "growth" or "discoloration".'
+    # "molding" (trim) is deliberately not matched.
+  - pattern: '\bmildew(?:ed|y)?\b'
+    suggestion: 'Use "growth" or "discoloration".'
+
+# Code citations. Reports describe the condition and route it; they never cite code.
+code_citations:
+  - pattern: '\b(?:IRC|IBC|IPC|IMC|IFGC|IECC|IPMC|NEC|UPC|UMC|FBC|NFPA)\b'
+    suggestion: Describe the condition and route it to the licensed trade instead of citing code.
+  - pattern: '\b(?:international|florida|uniform|national)\s+(?:residential|building|plumbing|mechanical|electrical|fuel gas|energy)\s+code\b'
+    suggestion: Describe the condition and route it to the licensed trade instead of citing code.
+  - pattern: '\bbuilding codes?\b'
+    suggestion: Describe the condition instead of referring to code.
+  - pattern: '\b(?:per|to|up to|against|violates?|violation of|not to)\s+code\b'
+    suggestion: Describe the condition instead of referring to code.
+  - pattern: '\bcode (?:violation|compliance|requirement)s?\b'
+    suggestion: Describe the condition instead of referring to code.
+  - pattern: '§'
+    suggestion: Remove the section citation.
+  - pattern: '\bsection\s+[A-Z]?\d'
+    suggestion: Remove the section citation.
+  - pattern: '\b[RMPEG]\d{3,4}(?:\.\d+)+\b'
+    suggestion: Remove the code section number.
+
+# Alarmist wording. Keep the tone measured; severity already carries urgency.
+alarmist:
+  - pattern: '\b(?:catastroph(?:e|ic)|disast(?:er|rous)|devastat(?:ing|ed))\b'
+    suggestion: State the measured condition and its likely consequence.
+  - pattern: '\b(?:deadly|lethal|toxic|poisonous)\b'
+    suggestion: Name the condition and route it to the licensed trade.
+  - pattern: '\b(?:dangerous|danger)\b'
+    suggestion: 'Use "safety concern".'
+  - pattern: '\b(?:alarming|terrifying|horrific|shocking|nightmare|panic)\b'
+    suggestion: Remove the emotional word.
+  - pattern: '\b(?:ruined|destroyed|massive|huge)\b'
+    suggestion: Describe the extent that was observed.
+  - pattern: '!'
+    suggestion: End the sentence with a period.
+
+# Consequence ranking: within one severity, earlier categories come first.
+# Categories not listed sort after all listed ones.
+consequence_order:
+  - water
+  - hvac
+  - freeze
+  - humidity
+  - opening
+  - person
+  - damage
+  - growth_or_discoloration
+  - outage
+  - coverage
+  - package
+  - debris
+  - pool_water
+  - overgrowth
+  - change
+  - benign

@@ -1,0 +1,45 @@
+# Sample thresholds for the three example rules. These are not a tuned set.
+# Replace them with your own YAML and load it through RulesConfig.load.
+
+summer_months: [6, 7, 8]
+vision_min_confidence: 0.5
+sensor_max_gap_minutes: 45
+
+rules:
+  active_water:
+    enabled: true
+    category: water
+    severity: Critical
+    specialist: licensed plumbing contractor
+    title: Water detected
+    recommendation: >-
+      Have a licensed plumbing contractor evaluate the full water supply and
+      drain system, and have surrounding cabinetry, flooring and wall finishes
+      checked for retained moisture.
+
+  freeze:
+    enabled: true
+    category: freeze
+    severity: Urgent
+    below_f: 32
+    specialist: licensed plumbing contractor
+    title: Freezing conditions indoors
+    recommendation: >-
+      Have a licensed HVAC contractor evaluate the full heating system, and a
+      licensed plumbing contractor check the full water supply system for
+      freeze exposure.
+
+  outage:
+    enabled: true
+    category: outage
+    severity: Monitor
+    severity_long_in_summer: Urgent
+    all_offline_minutes: 5
+    long_outage_hours: 8
+    specialist: licensed electrician
+    title: Probable power or internet outage
+    recommendation: >-
+      Check with the electric utility and internet provider for a reported
+      outage. If service is restored and the devices stay offline, have a
+      licensed electrician evaluate the full electrical system serving the
+      home.

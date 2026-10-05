@@ -1,0 +1,64 @@
+# Expected service life by component type.
+#
+# Format (version 1):
+#   <component_type>:
+#     label: owner-facing name
+#     expected_life_years: [low, high]   # typical range of service life
+#     notes: optional free text
+#
+# Inside the range the component is near the end of its expected life; past
+# `high` it is past expected life. These are general starting values. Tim sets
+# the final ones from inspection experience; replace freely.
+
+version: 1
+components:
+  water_heater_tank_gas:
+    label: Gas tank water heater
+    expected_life_years: [8, 12]
+  water_heater_tank_electric:
+    label: Electric tank water heater
+    expected_life_years: [10, 15]
+  water_heater_tankless:
+    label: Tankless water heater
+    expected_life_years: [15, 20]
+  ac_condenser:
+    label: Air conditioning condenser (outdoor unit)
+    expected_life_years: [10, 15]
+    notes: Coastal salt air shortens the low end.
+  heat_pump:
+    label: Heat pump (outdoor unit)
+    expected_life_years: [10, 15]
+  air_handler:
+    label: Air handler
+    expected_life_years: [15, 20]
+  furnace_gas:
+    label: Gas furnace
+    expected_life_years: [15, 20]
+  roof_asphalt_shingle:
+    label: Asphalt shingle roof covering
+    expected_life_years: [15, 25]
+  roof_metal:
+    label: Metal roof covering
+    expected_life_years: [40, 60]
+  roof_tile:
+    label: Tile roof covering
+    expected_life_years: [30, 50]
+  electrical_panel:
+    label: Electrical panel
+    expected_life_years: [30, 40]
+  smoke_alarm:
+    label: Smoke alarm
+    expected_life_years: [10, 10]
+    notes: Manufacturers print a replace-by date on the back label.
+  co_alarm:
+    label: Carbon monoxide alarm
+    expected_life_years: [7, 10]
+  refrigerator:
+    label: Refrigerator
+    expected_life_years: [10, 15]
+  dishwasher:
+    label: Dishwasher
+    expected_life_years: [9, 12]
+  clothes_washer:
+    label: Clothes washer
+    expected_life_years: [10, 14]
