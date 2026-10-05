@@ -24,6 +24,7 @@ CATEGORIES = (
     "opening",
     "damage",
     "growth_or_discoloration",
+    "stain",
     "person",
     "package",
     "debris",
@@ -157,7 +158,9 @@ Picture 2 is the CURRENT picture.
 Report what differs in the CURRENT picture that could affect the building \
 or the things kept there.
 
-Use the categories named in the schema. Describe only what is visible. Do not guess causes.
+Use the categories named in the schema. water is standing, running, or dripping \
+liquid only. A mark with no standing liquid is stain. Lifted, buckled, or sagging \
+flooring is damage. Describe only what is visible. Do not guess causes.
 Keep the wording measured and factual. For biological-looking staining, \
 use the words "growth" or "discoloration".
 Ordinary differences in daylight or exposure go in benign_changes, not findings.

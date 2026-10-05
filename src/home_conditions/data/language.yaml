@@ -56,6 +56,7 @@ consequence_order:
   - person
   - damage
   - growth_or_discoloration
+  - stain
   - outage
   - coverage
   - package

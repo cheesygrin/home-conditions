@@ -24,6 +24,7 @@
               "opening",
               "damage",
               "growth_or_discoloration",
+              "stain",
               "person",
               "package",
               "debris",

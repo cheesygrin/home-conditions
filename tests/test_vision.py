@@ -126,6 +126,23 @@ def test_results_from_before_outdoor_categories_still_parse():
     assert "overgrowth" not in {f.category for f in parsed.findings}
 
 
+def test_stain_parses_and_water_stays_standing_liquid():
+    raw = result(
+        findings=[
+            finding(
+                category="stain",
+                where="ceiling above the hall",
+                description="A tan mark covers 0.2 of the surface",
+            )
+        ]
+    )
+    parsed = parse_vision_result(raw)
+    assert parsed.findings[0].category == "stain"
+    prompt = build_compare_prompt("hall ceiling", "day")
+    assert "standing, running, or dripping" in prompt.system
+    assert "sagging" in prompt.system
+
+
 def test_overgrowth_and_pool_water_parse():
     raw = result(
         findings=[

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+- Vision category `stain` for a mark with no standing liquid
+- `water` in the example prompt is standing liquid only
+- Lifted, buckled, or sagging flooring is damage
+
 ## 0.1.0
 
 First release of the thin framework. Not published to PyPI.
